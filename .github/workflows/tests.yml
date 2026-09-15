@@ -1,0 +1,46 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Smoke-Test
+        run: python trading_engine_v7.py
+
+      - name: Property-Based Tests
+        env:
+          HYPOTHESIS_PROFILE: ci
+        run: pytest test_v7_property.py -v --hypothesis-show-statistics
+
+      - name: Coverage
+        run: |
+          pytest test_v7_property.py \
+                 --cov=trading_engine_v7 \
+                 --cov-report=term \
+                 --cov-report=xml
