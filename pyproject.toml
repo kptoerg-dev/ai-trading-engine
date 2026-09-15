@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-trading-engine"
+version = "7.0.0"
+description = "AI Trading Engine v7.0 — reference implementation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "kptoerg-dev" }]
+dependencies = [
+    "numpy>=1.24,<3.0",
+    "pandas>=2.0,<3.0",
+    "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+numba = ["numba>=0.57"]
+dev = [
+    "pytest>=7.4",
+    "hypothesis>=6.90",
+    "pytest-cov>=4.1",
+    "python-docx>=1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+addopts = "-v --strict-markers --tb=short"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["trading_engine_v7"]
+branch = true
