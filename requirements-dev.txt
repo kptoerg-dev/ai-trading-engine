@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=7.4
+hypothesis>=6.90
+pytest-cov>=4.1
+python-docx>=1.1
