@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Numba cache
+__pycache__/trading_engine_v7.*.nbc
+__pycache__/trading_engine_v7.*.nbi
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.hypothesis/
+
+# Dokumente (generiert)
+*.docx
+
+# IDE
+.vscode/
+.idea/
+*.swp
